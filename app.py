@@ -12,12 +12,10 @@ class Leaderboard(db.Model):
     username = db.Column(db.String(80))
     score = db.Column(db.Integer)
 
-
-db.create_all()
-
 @app.route('/')
 def homepage():
     return render_template('index.html')
 
 if __name__ == "__main__":
     app.run(debug = True)
+    # db.create_all()
