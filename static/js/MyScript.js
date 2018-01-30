@@ -1,34 +1,50 @@
+var particles = [];
 
-// Create a Paper.js Path to draw a line into it:
-// var path = new Path();
-// Give the stroke a color
-// path.strokeColor = 'black';
-// var start = new Point(100, 100);
-// Move to start and draw a line from there
-// path.add(start);
-// path.add(new Point(10,300));
-// alert("hi");
-// Note the plus operator on Point objects.
-// PaperScript does that for us, and much more!
-// path.lineTo(start + [ 100, -50 ]);
+// function onMouseDrag(event){
+//     // The radius is the distance between the position
+//     // where the user clicked and the current position
+//     // of the mouse.
+//     var path = new Path.Circle({
+//         center: event.downPoint,
+//         radius: (event.downPoint - event.point).length,
+//         fillColor: 'white',
+//         strokeColor: 'black'
+//     });
+//
+//     // Remove this path on the next drag event:
+//     path.removeOnDrag();
+//     particles.push(path);
+//     console.log(particles);
+// };
 
-var particles = []
-var P
-
-function Particle(x, y, radious) = {
-  this.radious = radious;
-  this.x = x;
-  this.y = y;
-  this.display = function display() {
-    var par = new Path.circle(this.x, this.y, this.radious)
+var mouseDown = 0;
+document.body.onmousedown = function() {
+  ++mouseDown;
+  console.log(mouseDown);
+  var par = new Path.Circle({
+      center: event.downPoint,
+      radious: 0,
+      fillColor: 'red',
+      strokeColor: 'black'
+  })
+  while(mouseDown == 1){
+    par.radious = event.downPoint - event.point;
+    console.log(mouseDown);
   }
 }
 
-function onMouseDown(event) {
-	path = new Path();
-	path.fillColor = new Color({ hue: Math.random() * 360, saturation: 1, brightness: 1 });
-
-	path.add(event.point);
+document.body.onmouseup = function(){
+  --mouseDown;
 }
-
-$(document).ready(onMouseDown)
+// function draw(){
+//   console.log("aa");
+  // var par = new Path.Circle({
+  //     center: event.downPoint,
+  //     radious: 0,
+  //     fillColor: new Color({ hue: Math.random() * 360, saturation: 1, brightness: 1 }),
+  //     strokeColor: 'black'
+  // })
+  // while(mouseDown){
+  //   par.radious = event.downPoint - event.point;
+  // }
+// };
