@@ -1,34 +1,52 @@
-var path;
-var pars = [];
+
 var color = new Color({hue: 360 * Math.random(), saturation: 1, brightness: 1});
 
-// function onMouseDown(event){
-// };
+var Particle = new function(){
+  var group = new Group();
+  var id = 0;
+  var velocity = [0, 0];
+  return {
+    children: group.children,
+    id: function(){
+      id += 1;
+      return id;
+    }
+    add: function(child){
+      group.addChild(child);
+    },
 
-function onMouseDrag(event) {
-    // The radius is the distance between the position
-    // where the user clicked and the current position
-    // of the mouse.
-    par = new Path.Circle({
-        center: event.downPoint,
-        radius: (event.downPoint - event.point).length,
-        fillColor: color,
-        strokeColor: 'black'
-    });
+    equals: function(other){
+      return this.position.equals(other.position) && this.id === other.id;
+    }
+  }
+}; //Particle
 
-    // Remove this path on the next drag event:
-    par.removeOnDrag();
+function onMouseDrag(event){
+  var par = new Shape.Circle({
+    center: event.downPoint,
+    radius: 1,
+    fillColor: color,
+    strokeColor: 'black'
+  });
+  Particle.add(par);
+
+  lenPar = Particle.children.length;
+  for(var  i = 0; i < lenPar; i++){
+    if(){
+      console.log("self");
+      par.set({
+        radius: (event.downPoint - event.point).length
+      });
+    }
+    else if (!(Particle.children[i].intersects(par))) {
+      par.set({
+        radius: (event.downPoint - event.point).length
+      });
+    }
+  }
+  par.removeOnDrag();
 };
 
 function onMouseUp(event){
   color = new Color({hue: 360 * Math.random(), saturation: 1, brightness: 1});
-  pars.push(par);
-  console.log(pars);
-  move();
-};
-
-function move(){
-  for(p = 0; p < pars.length; p += 1){
-    pars[p].center = new Point(100,100);
-  }
 };
